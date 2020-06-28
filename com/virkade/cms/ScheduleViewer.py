@@ -9,121 +9,181 @@ from gql import gql
 from gql.client import Client
 from gql.transport.requests import RequestsHTTPTransport
 
-
-width = 76
-height = 18
+width = 80
+height = 30
 
 
 def startApp():
     msg = "__main__.startApp()"
-    for step in range(int(width/2  - len(msg)/2)):
+    for step in range(int(width / 2 - len(msg) / 2)):
         print(" ", end="")
     print(msg)
     time.sleep(0.500)
-    msg="::::Application Boot Request::::"
-    for step in range(int(width/2 - len(msg)/2)):
+    msg = "::::Application Boot Request::::"
+    for step in range(int(width / 2 - len(msg) / 2)):
         print(" ", end="")
     print(msg)
     time.sleep(1)
     for step in range(int(height)):
-        print("\n")
+        print("\n", end="")
+        time.sleep(0.100)
     while True:
-        msg="::::Welcome to the VirKade::::"
-        for step in range(int(width/2 - len(msg)/2)):
+        msg = "::::Welcome to the VirKade::::"
+        for step in range(int(width / 2 - len(msg) / 2)):
             print(" ", end="")
         print(msg)
-        print("")
-        msg="loading..."
-        for step in range(int(width/2 - len(msg)/2)):
+        print("\n", end="")
+        
+        msg = "loading..."
+        for step in range(int(width / 2 - len(msg) / 2)):
             print(" ", end="")
         print(msg)
-        for step in range(int((height/2)-2)):
-            print("\n")
-        time.sleep(0.500)
+        for step in range(int(height/2) - 2):
+            print("\n", end="")
+            time.sleep(0.100)
+        
+        time.sleep(0.250)
+            
         respArray = fetchSessions()
-        msg="::::Welcome to the VirKade::::"
-        for step in range(int(width/2 - len(msg)/2)):
+        for step in range(int(height/2) + 2):
+            print("\n", end="")
+            time.sleep(0.100)
+        
+        msg = "[ we got fun and games ]"
+        for step in range(int(width / 2 - len(msg) / 2)):
             print(" ", end="")
         print(msg)
+        print("\n", end="")
+        
+        for step in range(int(height)):
+            print("\n", end="")
+            time.sleep(0.100)
+        
+        msg = "::::Welcome to the VirKade::::"
+        for step in range(int(width / 2 - len(msg) / 2)):
+            print(" ", end="")
+        print(msg)
+        
+        curtime = time.localtime();
+        curHour = str(curtime.tm_hour)
+        if len(curHour) == 1:
+            curHour = "0" + curHour
+        curMin = str(curtime.tm_min)
+        if len(curMin) == 1:
+            curMin = "0" + curMin
+        msg = "[ current time = " + curHour + ":" + curMin + " ]"
+        for step in range(int(width / 2 - len(msg) / 2)):
+            print(" ", end="")
+        print(msg)
+        
         displaySessions(respArray)
-        time.sleep(60)
-        msg="::::Refresh::::"
-        for step in range(int(width/2 - len(msg)/2)):
+        time.sleep(30)
+        
+        msg = "::::Refresh::::"
+        for step in range(int(width / 2 - len(msg) / 2)):
             print(" ", end="")
         print(msg)
         time.sleep(0.250)
+        
         for step in range(int(height)):
-            print("\n")
+            print("\n", end="")
+            time.sleep(0.100)
 
 
 def displaySessions(resArray):
     loops = 0;
+    # first row
+    for step in range(int(width - 1)):
+        print("=", end="")
+    print("=")
+    time.sleep(0.100)
+        
+    # second row
+    print("|", end="")
+    headers = " start "
+    print(headers, end="")
+    for step in range(int((width / 8) - (len(headers) + 2))):
+        print(" ", end="")
+    print("|", end="")
+       
+    headers = " customer name "
+    print(headers, end="")
+    for step in range(int((width / 2) - (len(headers) + 1))):
+        print(" ", end="")
+    print("|", end="")
+        
+    headers = " activity details "
+    print(headers, end="")
+    for step in range(int((width / 4) - (len(headers) + 1))):
+        print(" ", end="")
+    print("|", end="")
+        
+    headers = " end "
+    print(headers, end="")
+    for step in range(int((width / 8) - (len(headers) + 1))):
+        print(" ", end="")
+    print("|")
+    time.sleep(0.100)
+    
+    # new row
+    for step in range(int(width - 1)):
+        print("=", end="")
+    print("=")
+    time.sleep(0.100)    
+    
     for cur in resArray:
         border = "-"
-        if not loops % 2 == 0:
-            border= "="
         loops = loops + 1
-        if loops > 4:
+        if loops > 12:
             return
         
-        # first row
-        for step in range(int(width-2)):
-            print(border, end="")
-        print("-")
-        # second row
+        # new row
         print("|", end="")
-        startDate = "    start time: " + cur["startDate"] 
+        
+        startDate = cur["startDate"].split(" ")[1]
+        startDateHour = startDate.split(":")[0]
+        startDateMin = startDate.split(":")[1]
+        startDate = " " + startDateHour + ":" + startDateMin
         print(startDate, end="")
-        for step in range(int(width - (len(startDate)-2))):
+        for step in range(int((width / 8) - (len(startDate) + 2))):
             print(" ", end="")
-        print("|")
-        
-        # third row
         print("|", end="")
-        name = "    customer name: " + cur["lastName"] + ", " + cur["firstName"]
+        
+        name = " " + cur["lastName"] + ", " + cur["firstName"]
         print(name, end="")
-        for step in range(int(width - (len(name)-2))):
+        for step in range(int((width / 2) - (len(name) + 1))):
             print(" ", end="")
-        print("|")
-        
-        # fourth row
         print("|", end="")
-        username = "    username: " + cur["username"]
-        print(username, end="")
-        for step in range(int(width - (len(username)-2))):
-            print(" ", end="")
-        print("|")
         
-        # fifth row
-        print("|", end="")
-        sessionDetail = "    session details: " + cur["location"]["name"] + "[["
-        activities = cur["activities"]
-        for activity in activities:
-            sessionDetail = sessionDetail + activity["name"] + ", "
-        sessionDetail = sessionDetail + "]]"
+        sessionDetail = " " + cur["activity"]["name"]
         print(sessionDetail, end="")
-        for step in range(int(width - (len(sessionDetail)-2))):
+        for step in range(int((width / 4) - (len(sessionDetail) + 1))):
             print(" ", end="")
-        print("|")
-        
-        # six row
         print("|", end="")
-        endDate = "    end time: " + cur["endDate"] 
-        print(endDate, end="")
-        for step in range(int(width - (len(endDate)-2))):
-            print(" ", end="")
-        print("|")
         
-        # last row
-        for step in range(int(width-2)):
+        endDate = cur["endDate"].split(" ")[1]
+        endDateHour = endDate.split(":")[0]
+        endDateMin = endDate.split(":")[1]
+        endDate = " " + endDateHour + ":" + endDateMin
+        print(endDate, end="")
+        for step in range(int((width / 8) - (len(endDate) + 1))):
+            print(" ", end="")
+        print("|", end="")
+        time.sleep(0.100)
+        
+        # new row
+        for step in range(int(width - 1)):
             print(border, end="")
         print(border)
+        time.sleep(0.100)
     
     if loops == 0:
-        msg=":::no pending sessions:::"
-        for step in range(int(width/2 - len(msg)/2)):
+        print("\n")
+        msg = ":::no pending sessions:::"
+        for step in range(int(width / 2 - len(msg) / 2)):
             print(" ", end="")
         print(msg)
+
 
 def fetchSessions():
     try:
@@ -156,7 +216,7 @@ def fetchSessions():
                     location {
                         name
                     }
-                    activities {
+                    activity {
                         name
                     }
                 }
@@ -164,10 +224,11 @@ def fetchSessions():
         )
         res = client.execute(query)
     except Exception as e:
-        print(":::session fetch failed ["+str(e.args[0].reason)+"]:::")
+        print(":::session fetch failed [" + str(e.args[0].reason) + "]:::")
         return dict()
     resultsArray = res["getPendingSessions"]
     return resultsArray
+
 
 if __name__ == '__main__':
     startApp()
