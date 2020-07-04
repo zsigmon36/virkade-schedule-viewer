@@ -106,21 +106,21 @@ def displaySessions(resArray):
         print(" ", end="")
     print("|", end="")
        
+    headers = " end "
+    print(headers, end="")
+    for step in range(int((width / 8) - (len(headers) + 2))):
+        print(" ", end="")
+    print("|", end="")
+    
     headers = " customer name "
     print(headers, end="")
-    for step in range(int((width / 2) - (len(headers) + 1))):
+    for step in range(int((width / 2) - (len(headers) + 0))):
         print(" ", end="")
     print("|", end="")
         
     headers = " activity details "
     print(headers, end="")
     for step in range(int((width / 4) - (len(headers) + 1))):
-        print(" ", end="")
-    print("|", end="")
-        
-    headers = " end "
-    print(headers, end="")
-    for step in range(int((width / 8) - (len(headers) + 1))):
         print(" ", end="")
     print("|")
     time.sleep(0.100)
@@ -149,9 +149,18 @@ def displaySessions(resArray):
             print(" ", end="")
         print("|", end="")
         
+        endDate = cur["endDate"].split(" ")[1]
+        endDateHour = endDate.split(":")[0]
+        endDateMin = endDate.split(":")[1]
+        endDate = " " + endDateHour + ":" + endDateMin
+        print(endDate, end="")
+        for step in range(int((width / 8) - (len(endDate) + 2))):
+            print(" ", end="")
+        print("|", end="")
+        
         name = " " + cur["lastName"] + ", " + cur["firstName"]
         print(name, end="")
-        for step in range(int((width / 2) - (len(name) + 1))):
+        for step in range(int((width / 2) - (len(name) + 0))):
             print(" ", end="")
         print("|", end="")
         
@@ -159,16 +168,7 @@ def displaySessions(resArray):
         print(sessionDetail, end="")
         for step in range(int((width / 4) - (len(sessionDetail) + 1))):
             print(" ", end="")
-        print("|", end="")
-        
-        endDate = cur["endDate"].split(" ")[1]
-        endDateHour = endDate.split(":")[0]
-        endDateMin = endDate.split(":")[1]
-        endDate = " " + endDateHour + ":" + endDateMin
-        print(endDate, end="")
-        for step in range(int((width / 8) - (len(endDate) + 1))):
-            print(" ", end="")
-        print("|", end="")
+        print("|")
         time.sleep(0.100)
         
         # new row
