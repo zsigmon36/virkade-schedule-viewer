@@ -204,10 +204,7 @@ def fetchSessions():
             fetch_schema_from_transport=True,
             )
         query = gql(
-            '''{ getPendingSessions(
-                    locationName:"VirKade Prime",
-                    activityName:"Viveport"
-                    ){
+            '''{ getPendingSessions{
                     startDate
                     endDate
                     firstName
