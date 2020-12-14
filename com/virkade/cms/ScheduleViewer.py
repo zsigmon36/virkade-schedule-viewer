@@ -188,7 +188,7 @@ def displaySessions(resArray):
 def fetchSessions():
     try:
         requestConfig = RequestsHTTPTransport(
-            url="http://192.168.1.7:136/service/",
+            url="http://192.168.1.24:80/service/",
             use_json=True,
             headers={'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -1,1 +1,1 @@
-python ScheduleViewer.py
+python3 ScheduleViewer.py
