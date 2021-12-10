@@ -158,9 +158,11 @@ def displaySessions(resArray):
             print(" ", end="")
         print("|", end="")
         
-        name = " " + cur["lastName"] + ", " + cur["firstName"]
-        print(name, end="")
-        for step in range(int((width / 2) - (len(name) + 0))):
+        displayName = " " + cur["displayName"]
+        if (len(displayName) == 0):
+            displayName = " " + cur["lastName"] + ", " + cur["firstName"]
+        print(displayName, end="")
+        for step in range(int((width / 2) - (len(displayName) + 0))):
             print(" ", end="")
         print("|", end="")
         
@@ -210,6 +212,7 @@ def fetchSessions():
                     firstName
                     lastName
                     username
+                    displayName
                     location {
                         name
                     }
