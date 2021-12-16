@@ -158,9 +158,12 @@ def displaySessions(resArray):
             print(" ", end="")
         print("|", end="")
         
-        displayName = " " + cur["displayName"]
-        if (len(displayName) == 0):
+        
+        displayName = cur["displayName"]
+        if (displayName == None or len(displayName) == 0):
             displayName = " " + cur["lastName"] + ", " + cur["firstName"]
+        else:
+            displayName = " " + displayName
         print(displayName, end="")
         for step in range(int((width / 2) - (len(displayName) + 0))):
             print(" ", end="")
